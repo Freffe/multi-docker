@@ -17,6 +17,10 @@ jobs:
       - run: docker build -t truefeel/multi-nginx ./nginx 
       - run: docker build -t truefeel/multi-server ./server 
       - run: docker build -t truefeel/multi-worker ./worker
+      - uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - uses: actions-hub/docker@master
         with:
           args: push truefeel/multi-client
