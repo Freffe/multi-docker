@@ -17,15 +17,15 @@ jobs:
       - run: docker build -t truefeel/multi-nginx ./nginx 
       - run: docker build -t truefeel/multi-server ./server 
       - run: docker build -t truefeel/multi-worker ./worker
-      - uses: actions/docker/cli@master
+      - uses: actions-hub/docker@master
         with:
           args: push truefeel/multi-client
-      - uses: actions/docker/cli@master
+      - uses: actions-hub/docker@master
         with:
           args: push truefeel/multi-nginx
-      - uses: actions/docker/cli@master
+      - uses: actions-hub/docker@master
         with:
           args: push truefeel/multi-server
-      - uses: actions/docker/cli@master
+      - uses: actions-hub/docker@master
         with:
           args: push truefeel/multi-worker
