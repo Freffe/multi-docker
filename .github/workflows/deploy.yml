@@ -9,17 +9,17 @@ jobs:
     name: build and publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: npm test
-      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t truefeel/complexfib -f ./client/Dockerfile.dev ./client
-      - run: docker run -e CI=true truefeel/complexfib npm test
+        uses: actions/checkout@v2
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        run: docker build -t truefeel/complexfib -f ./client/Dockerfile.dev ./client
+        run: docker run -e CI=true truefeel/complexfib npm test
       - name: docker build
-      - run: docker build -t truefeel/multi-client ./client
-      - run: docker build -t truefeel/multi-nginx ./nginx
-      - run: docker build -t truefeel/multi-server ./server
-      - run: docker build -t truefeel/multi-worker ./worker
+        run: docker build -t truefeel/multi-client ./client
+        run: docker build -t truefeel/multi-nginx ./nginx
+        run: docker build -t truefeel/multi-server ./server
+        run: docker build -t truefeel/multi-worker ./worker
       - name: docker push
-      - uses: actions/docker/cli@master
+        uses: actions/docker/cli@master
         with:
           args: push truefeel/multi-client truefeel/multi-nginx truefeel/multi-server truefeel/multi-worker
